@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/justshhhhhhh-au/spotifywebapp@main/styles.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div id="app">
@@ -89,7 +89,7 @@
         <section class="view active" id="view-home">
           <div class="hero">
             <div class="hero-art">
-              <img src="https://raw.githubusercontent.com/justshhhhhhh-au/spotifywebapp/main/public/album-art.jpg" alt="sneaky!! cover" id="hero-cover" />
+              <img src="public/album-art.jpg" alt="sneaky!! cover" id="hero-cover" />
             </div>
             <div class="hero-meta">
               <span class="pill">Playlist</span>
@@ -120,7 +120,7 @@
           <h2>Your Library</h2>
           <div class="library-grid" id="library-grid">
             <div class="lib-card active-pl">
-              <img src="https://raw.githubusercontent.com/justshhhhhhh-au/spotifywebapp/main/public/album-art.jpg" alt="" />
+              <img src="public/album-art.jpg" alt="" />
               <div>
                 <strong>sneaky!!</strong>
                 <span>Playlist • Justin Shu</span>
@@ -143,7 +143,7 @@
     <!-- Now Playing Bar -->
     <footer class="player-bar" id="player-bar">
       <div class="now-playing">
-        <img src="https://raw.githubusercontent.com/justshhhhhhh-au/spotifywebapp/main/public/album-art.jpg" alt="" id="np-cover" class="np-cover" />
+        <img src="public/album-art.jpg" alt="" id="np-cover" class="np-cover" />
         <div class="np-info">
           <div class="np-title" id="np-title">Justin Shu’s Jam</div>
           <div class="np-artist" id="np-artist">Select a track</div>
@@ -199,6 +199,6 @@
   </div>
 
   <audio id="audio" preload="metadata"></audio>
-  <script src="https://cdn.jsdelivr.net/gh/justshhhhhhh-au/spotifywebapp@main/app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
