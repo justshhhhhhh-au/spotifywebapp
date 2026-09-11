@@ -1,65 +1,96 @@
-# Sparx Media — Multi-Platform Web Music Player
+# Sparx Media v2 — Next.js + Spotify OAuth + Embed
 
-Spotify-style dark player UI for **Justin Shu’s “sneaky!!” jam**, with:
+Multi-platform web music player for **Justin Shu / Sparx-ai**.
 
-- **Local music** — drag & drop or “+ Add Local Music” (MP3, WAV, FLAC, M4A, OGG, AAC)
-- **Multi-platform sources** — Local (live) + Spotify / YouTube Music / Apple Music / SoundCloud (connect stubs ready for real OAuth)
-- Cover art from the Trump × Elon “cigar office” playlist aesthetic
+- **Next.js 16** App Router + Tailwind
+- **Local files** — drag/drop + picker (real playback)
+- **Spotify OAuth PKCE** — real login, playlists + saved tracks
+- **`/embed`** — iframe-friendly player for Sparx pages
+- **`/embed.js`** — one-line widget script
 
-## Repo
-
-https://github.com/justshhhhhhh-au/spotifywebapp
-
-## Run locally (30 seconds)
+## Quick start
 
 ```bash
 git clone https://github.com/justshhhhhhh-au/spotifywebapp.git
 cd spotifywebapp
-npx serve .
-# or: python3 -m http.server 3000
+npm install
+cp .env.example .env.local
+# edit NEXT_PUBLIC_SPOTIFY_CLIENT_ID + NEXT_PUBLIC_APP_URL
+npm run dev
 ```
 
-Open the URL it prints (usually http://localhost:3000).
+Open http://localhost:3000
 
-## Deploy yourself
+## Spotify setup (5 min)
 
-### GitHub Pages
-1. Repo → **Settings → Pages**
-2. Source: **Deploy from a branch** → `main` / `/ (root)`
-3. Live at `https://justshhhhhhh-au.github.io/spotifywebapp/`
+1. https://developer.spotify.com/dashboard → Create app  
+2. Redirect URI: `http://localhost:3000/api/spotify/callback`  
+   (prod: `https://YOUR-DOMAIN/api/spotify/callback`)  
+3. Copy **Client ID** into `.env.local`:
 
-### Vercel (Sparx-ai team)
+```env
+NEXT_PUBLIC_SPOTIFY_CLIENT_ID=xxxxxxxx
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+4. Restart dev server → sidebar **Spotify → Connect**
+
+PKCE works without a client secret for public apps. Optional `SPOTIFY_CLIENT_SECRET` for confidential apps.
+
+> In-browser Spotify **streaming** still needs Premium + Web Playback SDK device (next upgrade). OAuth already unlocks library/playlists via Web API.
+
+## Embed on a Sparx page
+
+### iframe
+
+```html
+<iframe
+  src="https://YOUR-DOMAIN/embed"
+  width="100%"
+  height="520"
+  style="border:0;border-radius:12px"
+  allow="autoplay; encrypted-media"
+></iframe>
+```
+
+### widget script
+
+```html
+<div id="sparx-media" data-height="520"></div>
+<script src="https://YOUR-DOMAIN/embed.js" async></script>
+```
+
+Allow framing: `/embed` ships with open `frame-ancestors *`.
+
+## Routes
+
+| Path | Purpose |
+|------|---------|
+| `/` | Full player |
+| `/embed` | Compact embed UI |
+| `/api/spotify/login` | Start PKCE |
+| `/api/spotify/callback` | Token exchange |
+| `/api/spotify/refresh` | Refresh access token |
+| `/api/spotify/me` | Profile + playlists + saved tracks |
+| `/embed.js` | Widget loader |
+
+## Deploy (Vercel)
+
 ```bash
 npx vercel --prod
 ```
-(Requires team deploy permissions — link the GitHub repo in Vercel dashboard if the API role blocks CLI.)
 
-## Features
+Set env vars in project settings. Add production redirect URI in Spotify dashboard.
 
-| Feature | Status |
-|---------|--------|
-| Local file playback | ✅ Full (File API + blob URLs) |
-| Drag & drop audio | ✅ |
-| Playlist hero + track list (sneaky!!) | ✅ |
-| Now playing bar, seek, volume | ✅ |
-| Shuffle / repeat / like | ✅ |
-| Search | ✅ |
-| Keyboard (Space, ← →) | ✅ |
-| Responsive mobile | ✅ |
-| Real Spotify Web Playback / MusicKit | 🔌 Stubs — wire OAuth + SDKs |
+## v1 static app
 
-Demo tracks mirror the UI from your screenshots; they animate progress for UX. Drop real files for actual audio.
+Original vanilla HTML player remains on earlier commits if needed. This branch is the Next.js rewrite.
 
-## Stack
+## Next
 
-Vanilla HTML / CSS / JS — zero build step. Easy to embed in sparx-ai.com or expand into Next.js later.
+- Spotify Web Playback SDK device
+- MusicKit / YouTube connectors  
+- IndexedDB local library  
+- Media Session API  
 
-## Next upgrades (when you want them)
-
-1. Spotify Web Playback SDK + PKCE  
-2. IndexedDB library persistence  
-3. Media Session API (lock screen controls)  
-4. Folder import via File System Access API  
-5. YouTube Music / MusicKit connectors  
-
-Built for **sparx-ai / justshhhhhhh-au**.
+MIT · sparx-ai / justshhhhhhh-au
