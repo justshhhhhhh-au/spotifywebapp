@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="description" content="Multi-platform web music & media player. Connect Spotify, YouTube, local files and more. Justin Shu's Jam." />
+  <title>Sparx Media • Multi-Platform Player</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">Sparx Media</span>
+      </div>
+      <nav class="nav">
+        <button class="nav-item active" data-view="home">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          Home
+        </button>
+        <button class="nav-item" data-view="search">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          Search
+        </button>
+        <button class="nav-item" data-view="library">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/></svg>
+          Your Library
+        </button>
+      </nav>
+      <div class="sources-section">
+        <h3>Sources</h3>
+        <div class="source-item connected" data-source="local">
+          <span class="source-dot local"></span>
+          Local Files
+          <span class="badge">ON</span>
+        </div>
+        <div class="source-item" data-source="spotify" id="connect-spotify">
+          <span class="source-dot spotify"></span>
+          Spotify
+          <span class="badge">Connect</span>
+        </div>
+        <div class="source-item" data-source="youtube">
+          <span class="source-dot youtube"></span>
+          YouTube Music
+          <span class="badge">Connect</span>
+        </div>
+        <div class="source-item" data-source="apple">
+          <span class="source-dot apple"></span>
+          Apple Music
+          <span class="badge">Connect</span>
+        </div>
+        <div class="source-item" data-source="soundcloud">
+          <span class="source-dot soundcloud"></span>
+          SoundCloud
+          <span class="badge">Connect</span>
+        </div>
+      </div>
+      <div class="sidebar-footer">
+        <button id="add-local-btn" class="btn-primary full">
+          + Add Local Music
+        </button>
+        <input type="file" id="file-input" accept="audio/*,.mp3,.wav,.flac,.m4a,.ogg,.aac" multiple hidden />
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main">
+      <header class="top-bar">
+        <button class="icon-btn" id="menu-toggle">☰</button>
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input type="text" id="search-input" placeholder="Search songs, artists, playlists or local files..." />
+        </div>
+        <div class="user-chip">
+          <span class="avatar">J</span>
+          Justin Shu
+        </div>
+      </header>
+
+      <div class="content" id="content">
+        <!-- Home / Playlist view (default) -->
+        <section class="view active" id="view-home">
+          <div class="hero">
+            <div class="hero-art">
+              <img src="public/album-art.jpg" alt="sneaky!! cover" id="hero-cover" />
+            </div>
+            <div class="hero-meta">
+              <span class="pill">Playlist</span>
+              <h1>sneaky!!</h1>
+              <p class="subtitle">Mixed by Justin Shu • <span id="track-count">4</span> songs • ~15 min</p>
+              <div class="hero-actions">
+                <button class="btn-play" id="play-playlist">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+                <button class="btn-ghost" id="shuffle-btn">Shuffle</button>
+                <button class="btn-ghost">•••</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="track-list" id="track-list">
+            <!-- tracks injected by JS -->
+          </div>
+        </section>
+
+        <section class="view" id="view-search">
+          <h2>Search</h2>
+          <p class="muted">Type above to search across connected sources and local library.</p>
+          <div id="search-results" class="track-list"></div>
+        </section>
+
+        <section class="view" id="view-library">
+          <h2>Your Library</h2>
+          <div class="library-grid" id="library-grid">
+            <div class="lib-card active-pl">
+              <img src="public/album-art.jpg" alt="" />
+              <div>
+                <strong>sneaky!!</strong>
+                <span>Playlist • Justin Shu</span>
+              </div>
+            </div>
+            <div class="lib-card" id="local-lib-card">
+              <div class="lib-icon">📁</div>
+              <div>
+                <strong>Local Music</strong>
+                <span id="local-count">0 files</span>
+              </div>
+            </div>
+          </div>
+          <h3 style="margin-top:2rem">Recently Added Local</h3>
+          <div class="track-list" id="local-tracks"></div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Now Playing Bar -->
+    <footer class="player-bar" id="player-bar">
+      <div class="now-playing">
+        <img src="public/album-art.jpg" alt="" id="np-cover" class="np-cover" />
+        <div class="np-info">
+          <div class="np-title" id="np-title">Justin Shu’s Jam</div>
+          <div class="np-artist" id="np-artist">Select a track</div>
+        </div>
+        <button class="icon-btn like-btn" id="like-btn" title="Like">♡</button>
+      </div>
+
+      <div class="controls">
+        <div class="control-btns">
+          <button class="icon-btn" id="shuffle-toggle" title="Shuffle">⇄</button>
+          <button class="icon-btn" id="prev-btn" title="Previous">⏮</button>
+          <button class="play-btn" id="play-pause" title="Play/Pause">
+            <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <svg id="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </button>
+          <button class="icon-btn" id="next-btn" title="Next">⏭</button>
+          <button class="icon-btn" id="repeat-btn" title="Repeat">↻</button>
+        </div>
+        <div class="progress-row">
+          <span id="time-current">0:00</span>
+          <div class="progress-bar" id="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+            <div class="progress-thumb" id="progress-thumb"></div>
+          </div>
+          <span id="time-total">0:00</span>
+        </div>
+      </div>
+
+      <div class="extra-controls">
+        <button class="icon-btn" id="queue-btn" title="Queue">☰</button>
+        <div class="volume">
+          <button class="icon-btn" id="mute-btn">🔊</button>
+          <input type="range" id="volume" min="0" max="1" step="0.01" value="0.8" />
+        </div>
+        <span class="source-tag" id="source-tag">Local</span>
+      </div>
+    </footer>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Modal for connect -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-content">
+        <h2 id="modal-title">Connect Platform</h2>
+        <p id="modal-body">This demo simulates connection. Full OAuth for Spotify Web Playback SDK / YouTube requires API keys & backend. Local files work fully offline.</p>
+        <div class="modal-actions">
+          <button class="btn-ghost" id="modal-cancel">Close</button>
+          <button class="btn-primary" id="modal-confirm">Simulate Connect</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="audio" preload="metadata"></audio>
+  <script src="app.js"></script>
+</body>
+</html>
