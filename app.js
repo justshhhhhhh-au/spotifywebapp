@@ -4,7 +4,7 @@
  * Inspired by Justin Shu's "sneaky!!" jam + Spotify UX.
  */
 
-const COVER = 'public/album-art.jpg';
+const COVER = 'https://raw.githubusercontent.com/justshhhhhhh-au/spotifywebapp/main/public/album-art.jpg';
 
 // Demo tracks matching the reference UI (no real audio URLs for copyrighted tracks;
 // when you add local files they become playable)
