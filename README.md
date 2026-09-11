@@ -1,53 +1,65 @@
-# Sparx Media – Multi-Platform Web Music Player
+# Sparx Media — Multi-Platform Web Music Player
 
-A beautiful, Spotify-inspired web music & media player that:
+Spotify-style dark player UI for **Justin Shu’s “sneaky!!” jam**, with:
 
-- **Plays local music** from your device (File API + drag-and-drop)
-- **Connects to multiple platforms** (Spotify, YouTube Music, Apple Music, SoundCloud) — OAuth-ready stubs
-- Matches the custom **"sneaky!!"** playlist UI (Justin Shu’s Jam cover art)
+- **Local music** — drag & drop or “+ Add Local Music” (MP3, WAV, FLAC, M4A, OGG, AAC)
+- **Multi-platform sources** — Local (live) + Spotify / YouTube Music / Apple Music / SoundCloud (connect stubs ready for real OAuth)
+- Cover art from the Trump × Elon “cigar office” playlist aesthetic
 
-## Live demo
+## Repo
 
-Deployed via Vercel from this repo.
+https://github.com/justshhhhhhh-au/spotifywebapp
+
+## Run locally (30 seconds)
+
+```bash
+git clone https://github.com/justshhhhhhh-au/spotifywebapp.git
+cd spotifywebapp
+npx serve .
+# or: python3 -m http.server 3000
+```
+
+Open the URL it prints (usually http://localhost:3000).
+
+## Deploy yourself
+
+### GitHub Pages
+1. Repo → **Settings → Pages**
+2. Source: **Deploy from a branch** → `main` / `/ (root)`
+3. Live at `https://justshhhhhhh-au.github.io/spotifywebapp/`
+
+### Vercel (Sparx-ai team)
+```bash
+npx vercel --prod
+```
+(Requires team deploy permissions — link the GitHub repo in Vercel dashboard if the API role blocks CLI.)
 
 ## Features
 
 | Feature | Status |
 |---------|--------|
-| Local MP3/WAV/FLAC/M4A/OGG playback | ✅ Full |
-| Drag & drop files | ✅ |
-| Playlist UI (sneaky!!) | ✅ |
-| Now-playing bar, seek, volume, shuffle, repeat | ✅ |
+| Local file playback | ✅ Full (File API + blob URLs) |
+| Drag & drop audio | ✅ |
+| Playlist hero + track list (sneaky!!) | ✅ |
+| Now playing bar, seek, volume | ✅ |
+| Shuffle / repeat / like | ✅ |
 | Search | ✅ |
-| Keyboard shortcuts (Space, arrows) | ✅ |
-| Responsive (mobile + desktop) | ✅ |
-| Real Spotify / YT OAuth | 🔌 Stub (ready to wire Web Playback SDK / APIs) |
+| Keyboard (Space, ← →) | ✅ |
+| Responsive mobile | ✅ |
+| Real Spotify Web Playback / MusicKit | 🔌 Stubs — wire OAuth + SDKs |
 
-## Quick start (local)
+Demo tracks mirror the UI from your screenshots; they animate progress for UX. Drop real files for actual audio.
 
-```bash
-# any static server
-npx serve .
-# or
-python3 -m http.server 3000
-```
+## Stack
 
-Open http://localhost:3000
+Vanilla HTML / CSS / JS — zero build step. Easy to embed in sparx-ai.com or expand into Next.js later.
 
-## Add real platform streaming
+## Next upgrades (when you want them)
 
-1. **Spotify** – Spotify Web Playback SDK + Authorization Code with PKCE  
-2. **YouTube Music** – unofficial clients or YouTube IFrame API for videos  
-3. **Apple Music** – MusicKit JS  
-4. **SoundCloud** – SC Widget / API  
+1. Spotify Web Playback SDK + PKCE  
+2. IndexedDB library persistence  
+3. Media Session API (lock screen controls)  
+4. Folder import via File System Access API  
+5. YouTube Music / MusicKit connectors  
 
-Backend recommended for token exchange. Local files already work fully offline.
-
-## Credits
-
-UI inspired by Justin Shu’s custom Spotify playlist screenshots featuring the Trump × Elon “cigar office” art.  
-Built for sparx-ai / justshhhhhhh-au.
-
-## License
-
-MIT
+Built for **sparx-ai / justshhhhhhh-au**.
